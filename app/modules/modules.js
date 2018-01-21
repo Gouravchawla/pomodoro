@@ -2,6 +2,7 @@
   'use strict';
 
   /**
+
    * @name 'pomodoro.modules'
    * @param  {} 'pomodoro.timer'
    * @param  {} 'pomodoro.todo'
