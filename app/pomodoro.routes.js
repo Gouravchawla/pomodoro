@@ -15,7 +15,7 @@
     $routeProvider.when('/', {
       controller: 'TimerController',
       controllerAs: 'vm',
-      templateUrl: 'timer/templates/timer.html'
+      templateUrl: '/modules/timer/templates/timer.html'
     }).otherwise('/');
   }
 })();
