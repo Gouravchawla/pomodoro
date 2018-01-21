@@ -9,7 +9,7 @@
     .module('pomodoro.timer.services')
     .factory('Timer', Timer);
 
-  Timer.$inject = ['$cookies', '$http'];
+  Timer.$inject = ['$cookies', '$http', '$timeout'];
 
   /**
    * @namespace Timer
