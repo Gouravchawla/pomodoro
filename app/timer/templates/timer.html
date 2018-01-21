@@ -1,0 +1,7 @@
+<form ng-submit="vm.startTimer()">
+  <input type="number" ng-model="vm.minutes" placeholder="Enter number of minutes" />
+  <button type="submit">Start Timer</button>
+</form>
+<div>
+  <h3 style="text-align: center">Timer should appear here: {{ vm.minutes }}</h3>
+</div>
