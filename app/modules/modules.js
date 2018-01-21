@@ -2,12 +2,15 @@
   'use strict';
 
   /**
-   * Name: 'pomodoro.modules'
+
+   * @name 'pomodoro.modules'
    * @param  {} 'pomodoro.timer'
-   * Inject all modules here to use it directly.
+   * @param  {} 'pomodoro.todo'
+   * @desc Inject all the modules here to use it directly
    */
   angular
     .module('pomodoro.modules', [
       'pomodoro.timer',
+      'pomodoro.todo',
     ]);
 })();

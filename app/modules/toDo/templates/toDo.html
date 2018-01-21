@@ -1,0 +1,8 @@
+<h2>My Todo List</h2>
+<form ng-submit="vm.todoAdd()">
+    <input type="text" ng-model="vm.todoInput" required size="50" placeholder="Add New">
+    <input type="submit" value="Add New">
+</form>
+<div ng-repeat="item in vm.todoList">
+    <input type="checkbox" ng-model="item.done"> {{ item.todoText }}
+</div>

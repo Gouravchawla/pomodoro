@@ -16,6 +16,10 @@
       controller: 'TimerController',
       controllerAs: 'vm',
       templateUrl: '/modules/timer/templates/timer.html'
+    }).when('/todo', {
+      controller: 'ToDoController',
+      controllerAs: 'vm',
+      templateUrl: '/modules/toDo/templates/toDo.html'
     }).otherwise('/');
   }
 })();
