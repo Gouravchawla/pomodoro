@@ -1,5 +1,33 @@
 <div  style="text-align: center">
   <h3> {{ vm.minutes }} : {{ vm.seconds }}s</h3>
-  <button type="button" ng-hide="vm.isTimerActive" ng-click="vm.startTimer()">Start</button>
-  <button type="button" ng-show="vm.isTimerActive" ng-click="vm.stopTimer()">Stop</button>
+  <button type="button"
+          ng-hide="vm.isTimerActive"
+          ng-click="vm.startTimer()">
+    Start
+  </button>
+  <button type="button"
+          ng-show="vm.isTimerPaused"
+          ng-click="vm.startTimer()">
+    Resume
+  </button>
+  <button type="button"
+          ng-show="!vm.isTimerPaused && vm.isTimerActive"
+          ng-click="vm.pauseTimer()">
+    Pause
+  </button>
+  <button type="button"
+          ng-show="vm.isTimerActive || vm.isTimerPaused"
+          ng-click="vm.stopTimer()">
+    Stop
+  </button>
+
+</div>
+
+<div>
+  <p>Debugging:</p>
+  <p>
+    TimerPaused: {{ vm.isTimerPaused }}<br/>
+    TimerActive: {{ vm.isTimerActive }}<br/>
+    Minutes, seconds: {{ vm.minutes }}, {{ vm.seconds }}
+  </p>
 </div>
