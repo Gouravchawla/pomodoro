@@ -9,49 +9,56 @@
     .module('pomodoro.timer.controllers')
     .controller('TimerController', TimerController);
 
-  TimerController.$inject = ['$location', '$scope', '$timeout', 'Timer'];
+  TimerController.$inject = ['$location', '$scope', '$interval', 'Timer'];
 
   /**
    * @namespace TimerController
    */
-  function TimerController($location, $scope, $timeout, Timer) {
-    var vm = this;
-    var timerTimeout = null;
-    vm.minutes = 25;
-    vm.seconds = 0;
+  function TimerController($location, $scope, $interval, Timer) {
+    let vm = this;
+    let timerInterval = null;
+    let minutes = 25;
+    let seconds = 0;
+
+    vm.displayTimer = '' + minutes + ' : ' + seconds + 's';
     vm.isTimerActive = false;
     vm.isTimerPaused = false;
+    vm.startTimer = startTimer;
+    vm.pauseTimer = pauseTimer;
+    vm.resumeTimer = resumeTimer;
+    vm.stopTimer = stopTimer;
     
-    var addPadding = function(number) {
-      return '0' + number;
+    let setDisplayTimer = function(minutes, seconds) {
+      let minutesString = minutes < 10 ? '0' + minutes : '' + minutes;
+      let secondsString = seconds < 10 ? '0' + seconds + 's' : '' + seconds + 's';
+      vm.displayTimer = minutesString + ' : ' + secondsString;
     };
 
-    var clock = function() {
-      if(vm.minutes === 0) {
-        cancelTimeout(timerTimeout);
+    let clock = function() {
+      if(minutes === 0) {
+        cancelInterval(timerInterval);
         vm.isTimerActive = false;
       } else {
-        if(vm.seconds === 0) {
-          vm.seconds = 60;
-          vm.minutes -= 1;
+        if(seconds === 0) {
+          seconds = 60;
+          minutes = minutes - 1;
         }
-        vm.seconds -= 1;
-        timerTimeout = $timeout(clock, 1000);
+        seconds = seconds - 1;
+        setDisplayTimer(minutes, seconds);
       }
     };
 
-    var resetTimer = function() {
-      vm.minutes = 25;
-      vm.seconds = 0;
+    let resetTimer = function() {
+      minutes = 10;
+      seconds = 0;
+      vm.isTimerActive = false;
+      vm.isTimerPaused = false;
     };
 
-    var cancelTimeout = function(timeoutName) {
-      $timeout.cancel(timeoutName);
+    let cancelInterval = function(timeoutName) {
+      $interval.cancel(timeoutName);
     };
 
-    vm.startTimer = startTimer;
-    vm.pauseTimer = pauseTimer;
-    vm.stopTimer = stopTimer;
 
     /**
      * @name startTimer
@@ -59,11 +66,10 @@
      * @memberOf pomodoro.timer.controllers.TimerController
      */
     function startTimer() {
-      //Timer.startTimer(vm.minutes);
-      if(vm.isTimerActive === false || vm.isTimerPaused === true) {
-        timerTimeout = $timeout(clock, 1000);
+      //Timer.startTimer(minutes);
+      if(vm.isTimerActive === false) {
+        timerInterval = $interval(clock, 1000);
         vm.isTimerActive = true;
-        vm.isTimerPaused = false;
       }
     }
 
@@ -75,7 +81,20 @@
     function pauseTimer() {
       if(vm.isTimerPaused === false && vm.isTimerActive === true) {
         vm.isTimerPaused = true;
-        cancelTimeout(timerTimeout);
+        cancelInterval(timerInterval);
+      }
+    }
+
+    /**
+     * @name resumeTimer
+     * @desc Resumes the pomodoro timer
+     * @memberOf pomodoro.timer.controllers.TimerController
+     */
+    function resumeTimer() {
+      //Timer.startTimer(minutes);
+      if(vm.isTimerPaused === true) {
+        timerInterval = $interval(clock, 1000);
+        vm.isTimerPaused = false;
       }
     }
 
@@ -85,10 +104,11 @@
      * @memberOf pomodoro.timer.controllers.TimerController
      */
     function stopTimer() {
+      // Cancel timeout only if the timer is not paused
+      if(vm.isTimerPaused === false) {
+        cancelInterval(timerInterval);
+      }
       resetTimer();
-      cancelTimeout(timerTimeout);
-      vm.isTimerActive = false;
-      vm.isTimerPaused = false;
     }
   }
 })();

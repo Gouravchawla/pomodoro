@@ -1,5 +1,5 @@
 <div  style="text-align: center">
-  <h3> {{ vm.minutes }} : {{ vm.seconds }}s</h3>
+  <h3>{{ vm.displayTimer }}</h3>
   <button type="button"
           ng-hide="vm.isTimerActive"
           ng-click="vm.startTimer()">
@@ -7,7 +7,7 @@
   </button>
   <button type="button"
           ng-show="vm.isTimerPaused"
-          ng-click="vm.startTimer()">
+          ng-click="vm.resumeTimer()">
     Resume
   </button>
   <button type="button"
