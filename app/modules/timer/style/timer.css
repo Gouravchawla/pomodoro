@@ -1,0 +1,20 @@
+.center {
+    text-align: center;
+}
+
+svg {
+    width: 20%
+}
+
+.progress-wrapper{
+    position: relative;
+    margin:20px auto;
+    font-size: 40px;
+}
+
+.timer{
+    position: absolute;
+    color: #bbb;
+    font-weight: 100;
+    line-height: 1;
+}

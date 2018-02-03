@@ -1,33 +1,25 @@
-<div  style="text-align: center">
-  <h3>{{ vm.displayTimer }}</h3>
-  <button type="button"
-          ng-hide="vm.isTimerActive"
-          ng-click="vm.startTimer()">
-    Start
-  </button>
-  <button type="button"
-          ng-show="vm.isTimerPaused"
-          ng-click="vm.resumeTimer()">
-    Resume
-  </button>
-  <button type="button"
-          ng-show="!vm.isTimerPaused && vm.isTimerActive"
-          ng-click="vm.pauseTimer()">
-    Pause
-  </button>
-  <button type="button"
-          ng-show="vm.isTimerActive || vm.isTimerPaused"
-          ng-click="vm.stopTimer()">
-    Stop
-  </button>
-
-</div>
-
-<div>
-  <p>Debugging:</p>
-  <p>
-    TimerPaused: {{ vm.isTimerPaused }}<br/>
-    TimerActive: {{ vm.isTimerActive }}<br/>
-    Minutes, seconds: {{ vm.minutes }}, {{ vm.seconds }}
-  </p>
-</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <div class="center">
+        <div class="progress-wrapper">
+          <div class="timer" ng-style="vm.getStyle()">{{ vm.displayTimer }}</div>
+          <round-progress max="vm.max" current="vm.currentSeconds" color="{{ vm.getColor() }}" bgcolor="{{ vm.bgColor }}" radius="{{ vm.radius }}"
+            semi="vm.isSemi" rounded="vm.rounded" stroke="{{vm.stroke }}" clockwise="vm.clockwise" responsive="vm.responsive"
+            duration="{{ vm.duration }}" animation="{{ vm.currentAnimation }}" offset="{{ vm.offset }}" animation-delay="0"
+            on-render="vm.showPreciseCurrent">
+            <svg>
+              <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="5%" stop-color="green" />
+                <stop offset="95%" stop-color="gold" />
+              </linearGradient>
+            </svg>
+          </round-progress>
+        </div>
+        <i class="fa fa-play btn btn-primary" ng-hide="vm.isTimerActive" ng-click="vm.startTimer()"></i>
+        <i class="fa fa-play btn btn-primary" ng-show="vm.isTimerPaused" ng-click="vm.resumeTimer()"></i>
+        <i class="fa fa-pause btn btn-warning" ng-show="!vm.isTimerPaused && vm.isTimerActive" ng-click="vm.pauseTimer()"></i>
+        <i class="fa fa-stop btn btn-danger" ng-show="vm.isTimerActive || vm.isTimerPaused" ng-click="vm.stopTimer()"></i>
+      </div>
+    </div>
+  </div>
