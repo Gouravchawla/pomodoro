@@ -5,11 +5,13 @@
    * @name  {} 'pomodoro.timer'
    * @param  {} 'pomodoro.timer.controllers'
    * @param  {} 'pomodoro.timer.services'
+   * @param  {} 'angular-svg-round-progressbar'
    */
   angular
     .module('pomodoro.timer', [
       'pomodoro.timer.controllers',
-      'pomodoro.timer.services'
+      'pomodoro.timer.services',
+      'angular-svg-round-progressbar',
     ]);
 
   /**
